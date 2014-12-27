@@ -1,4 +1,4 @@
 class Food < ActiveRecord::Base
-	has_many :recipefoods
-	has_many :recipes, :through => :recipefoods
+	has_many :recipe_foods
+	has_many :recipes, :through => :recipe_foods
 end

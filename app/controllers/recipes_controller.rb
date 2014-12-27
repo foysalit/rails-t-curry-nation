@@ -14,17 +14,23 @@ class RecipesController < ApplicationController
 
   # GET /recipes/new
   def new
+    @foods = Food.all
     @recipe = Recipe.new
   end
 
   # GET /recipes/1/edit
   def edit
+    @foods = Food.all
   end
 
   # POST /recipes
   # POST /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
+
+    food_ids = recipe_params[:food_ids]
+    food_ids.delete("")
+    @recipe.foods << Food.find(food_ids)
 
     respond_to do |format|
       if @recipe.save
@@ -69,6 +75,6 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:title)
+      params.require(:recipe).permit(:title, :food_ids => [])
     end
 end

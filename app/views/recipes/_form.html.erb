@@ -18,9 +18,13 @@
 
   <div class="field">
     <%= f.label :food %>
-    <%= fields_for :foods, @recipe.foods do |food_fields| %>
-     <%= food_fields.check_box :food %>
-  <% end %>
+    <%= collection_check_boxes(
+      :recipe, 
+      :food_ids, 
+      @foods, 
+      :id, 
+      :name)
+    %>
   </div>
   <div class="actions">
     <%= f.submit class: "button success" %>
