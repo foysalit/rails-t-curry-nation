@@ -12,4 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require foundation_and_overrides
  */
+
+.recipes-list-item {
+	-webkit-box-shadow: 0 0 2px #c9c9c9;
+	box-shadow: 0 0 2px #c9c9c9;
+	padding: 2% 3%;
+}
