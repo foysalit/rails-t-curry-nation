@@ -28,9 +28,10 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
 
-    food_ids = recipe_params[:food_ids]
-    food_ids.delete("")
-    @recipe.foods << Food.find(food_ids)
+    params['food_amounts'].each do |index, amount|
+      puts @recipe.recipe_foods
+      #@recipe.recipe_foods.:amount => amount)
+    end
 
     respond_to do |format|
       if @recipe.save
@@ -70,7 +71,7 @@ class RecipesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.find(params[:id])
+      @recipe = Recipe.includes(:foods).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

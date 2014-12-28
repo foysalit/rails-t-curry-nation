@@ -18,13 +18,20 @@
 
   <div class="field">
     <%= f.label :food %>
-    <%= collection_check_boxes(
+    <%# collection_check_boxes(
       :recipe, 
       :food_ids, 
       @foods, 
       :id, 
       :name)
     %>
+
+    <% @foods.each do |food| %>
+      <input type="checkbox" value="<%= food.id %>" name="recipe[food_ids][]" id="recipe_food_ids_<%= food.id %>">
+      <label for="recipe_food_ids_<%= food.id %>"><%= food.name %></label>
+
+      <input type="text" name="food_amounts[<%= food.id %>]">
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit class: "button success" %>
