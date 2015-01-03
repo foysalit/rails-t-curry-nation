@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.includes(:foods, :recipe_foods).all
   end
 
   # GET /recipes/1
@@ -28,9 +28,15 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
 
-    params['food_amounts'].each do |index, amount|
-      puts @recipe.recipe_foods
-      #@recipe.recipe_foods.:amount => amount)
+    amounts = params['food_amounts']
+
+    @recipe.recipe_foods.each do |ingredient|
+      hash_accessor = ingredient.food_id.to_s
+      puts ingredient.food_id, amounts[hash_accessor], amounts.has_key?(hash_accessor)
+      
+      if amounts.has_key?(hash_accessor)
+        ingredient.amount = amounts[hash_accessor]
+      end
     end
 
     respond_to do |format|

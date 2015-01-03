@@ -9,6 +9,17 @@
       <li>
         <div class="recipes-list-item">
           <h3><%= recipe.title %></h3>
+          <% puts recipe.recipe_foods.inspect %>
+          <% if recipe.foods %>
+            <ul>
+              <% recipe.foods.each do |ingredient| %>
+                <li>
+                  <%= ingredient.name %> - 
+                  <%= ingredient.name %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
 
           <div class="actions">
             <%= link_to(recipe, class: "button tiny") do %>
